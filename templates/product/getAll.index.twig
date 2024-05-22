@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GetAll Products{% endblock %}
+
+{% block body %}
+
+    <div class="text-center mt-4">
+        <h1>Bienvenid@</h1>
+    </div>
+    
+    <h2>Lista de Productos</h2>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>CATEGORIA</th>
+                    <th>PRECIO</th>
+                    <th>DESCRIPCION</th>
+                    <th>STOCK</th>
+                    <th>ACTIVO</th>                    
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dato in datos %}
+                <tr>
+                    <td>{{dato.id}}</td>
+                    <td>{{dato.name}}</td>
+                    <td>{{dato.category.name}}</td>
+                    <td>{{dato.price}}</td>
+                    <td>{{dato.description}}</td>
+                    <td>{{dato.stock}}</td> 
+                    <td>{{dato.idDelete ? 'NO' : 'SI'}}</td>                   
+                    <td>
+                        <a href="{{ path ('product_edit', {id: dato.id}) }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-pen-fill"></i> Edit</a>
+                        <a href="{{ path ('product_deletedb', {id: dato.id})  }}" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash3-fill"></i> Deletedb</a>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+    
+
+{% endblock %}

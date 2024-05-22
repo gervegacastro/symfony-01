@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Item{% endblock %}
+
+{% block body %}
+
+
+<div class="container row">
+    {# Inicio Formulario #}
+    <section class="d-flex justify-content-center col-md-4">
+        <div class="mt-4 form-login mb-4">
+            <div class="text-center p-3">
+                <h2>Agregar Productos</h2>
+                {% if errors %}
+                    <div class=" alert alert-danger">
+                        <ul>
+                            {% for error in errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>        
+
+            {{ form_start(form, {'attr': {'class': 'p-3', 'novalidate': '' , 'autocomplete':'off'}}) }}
+                {% for message in app.flashes ('mensaje') %}
+                    <div class="">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            
+                <div class="form-group">
+                    {{ form_label(form.producto) }} 
+                    {{ form_widget(form.producto) }}
+                    {{ form_errors(form.producto) }}                                   
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.quantity) }} 
+                    {{ form_widget(form.quantity) }}
+                    {{ form_errors(form.quantity) }}                                   
+                </div> 
+
+                <!-- Token -->
+                <input type="hidden" name="token" value="{{csrf_token('generico')}}">        
+                <div class="d-flex justify-content-center mt-3">
+                    <input type="submit" value="Agregar" class="btn btn-outline-primary mt">
+                </div>
+            {{ form_end(form) }}
+        </div>    
+    </section>{# Fin Formulario #}
+    
+    {# Datos Venta #}
+    <section class="d-flex flex-column justify-content-center align-items-center col-md-8">        
+            <h4>Información de la venta</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Id venta</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>                       
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.client.name }} {{ sale.client.lastname }}</td>
+                        <td>{{ sale.date|date('Y-m-d') }}</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        
+            <h4 class="mt-3">Lista de productos</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>                    
+                        <th scope="col">Producto</th>
+                        <th scope="col">Pr Unit</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in sale.items %}
+                    <tr>     
+                        <td>{{ item.producto.name }}</td>
+                        <td>{{ item.producto.price }}</td>
+                        <td>{{ item. quantity }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td><a href="{{ path ('item_deletedb', {id : item.id}) }}"><i class="bi bi-trash-fill btn btn-outline-danger"></i></a></td>
+                    </tr>
+                    {% endfor %}                                             
+                </tbody>
+            </table>                
+    </section>{# Fin datos venta #}
+</div>
+<div class="container d-flex flex-column align-items-end mb-3">
+    <div class="mb-2">
+        <label><b>Monto Total =</b></label>
+        <input class="text-center" type="text" value="{{ sale.amount }}">
+    </div>
+    <div class="mb-2">
+        <a href="{{ path ('sale_index') }}" class="btn btn-success btn-sm">
+        <i class="bi bi-check-circle"></i> Confirmar Venta</a>
+    </div>
+    <div>
+        <a href="{{ path ('sale_deletedb', {id: sale.id}) }}" class="btn btn-secondary btn-sm">
+        <i class="bi bi-skip-backward-fill"></i> Volver</a>
+    </div>                
+</div>
+
+{% endblock %}

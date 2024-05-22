@@ -1,0 +1,12 @@
+Options -Indexes
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Agrega esta línea para que las reglas de reescritura se apliquen a la carpeta 'public'
+    RewriteBase /symfony/symfony-01/public
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

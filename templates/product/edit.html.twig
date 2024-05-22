@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+
+<section class="d-flex justify-content-center">
+    <div class="mt-4 form-login bg-light mb-4">
+        <div class="text-center p-3">
+            <h2>Editar Producto</h2>
+            {% if errors %}
+                <div class=" alert alert-danger">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>        
+
+        {{ form_start(form, {'attr': {'class': 'p-3', 'novalidate': '' , 'autocomplete':'off'}}) }}
+            {% for message in app.flashes ('mensaje') %}
+                <div class="">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                {{ form_label(form.name) }} 
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}                                   
+            </div>           
+            <div class="form-group">
+                {{ form_label(form.price) }} 
+                {{ form_widget(form.price) }}
+                {{ form_errors(form.price) }}
+            </div>  
+             <div class="form-group">
+                {{ form_label(form.description) }} 
+                {{ form_widget(form.description) }}
+                {{ form_errors(form.description) }}                                    
+            </div>
+            <div class="form-group">
+                {{ form_label(form.stock) }} 
+                {{ form_widget(form.stock) }}
+                {{ form_errors(form.stock) }}                                    
+            </div> 
+            <div class="form-group">
+                {{ form_label(form.category) }} 
+                {{ form_widget(form.category) }}
+                {{ form_errors(form.category) }}                                    
+            </div>          
+            
+            <!-- Token -->
+            <input type="hidden" name="token" value="{{csrf_token('generico')}}">        
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" value="Editar" class="btn btn-outline-primary mt">
+            </div>
+        {{ form_end(form) }}
+    </div>    
+</section>
+
+{% endblock %}

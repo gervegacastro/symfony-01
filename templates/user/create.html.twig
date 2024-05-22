@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create User{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <section class="form-login">
+        <div class="text-center p-3">
+            <h2>Crear Usuario</h2>
+            {% if errors %}
+                <div class=" alert alert-danger">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>        
+
+        {{ form_start(form, {'attr': {'class': 'p-3', 'novalidate': '' , 'autocomplete':'off'}}) }}
+            {% for message in app.flashes ('mensaje') %}
+                <div class="">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="form-group"> 
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+                {{ form_errors(form.lastname) }}                         
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password) }}
+                {{ form_errors(form.password) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.rol) }}
+                {{ form_widget(form.rol) }}
+                {{ form_errors(form.rol) }}                     
+            </div>         
+            <!-- Token -->
+            <input type="hidden" name="token" value="{{csrf_token('generico')}}">        
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" value="Crear" class="btn btn-outline-dark">
+            </div>
+        {{ form_end(form) }}
+    </section>    
+</div>    
+
+{% endblock %}

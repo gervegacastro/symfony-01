@@ -1,0 +1,40 @@
+
+/* Estilos Navbar */
+.white {
+    color: white;
+}
+
+/* Estilos Body*/
+.body {
+    min-height: 515px;
+}
+
+/* Estilos footer */
+.footer {
+    color:white;       
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;      
+}
+
+/* Estilos login y registro */
+.form-login {
+    display: flex;    
+    flex-direction: column;
+    background-color: rgb(184, 241, 210);           
+    min-width: 350px;               
+}
+
+.label {
+    background-color: lightgrey;
+    max-width: 90%;
+}
+
+.input {
+    min-width: 90%;
+    background-color: rgba(236, 231, 231, 0.925);
+}
+
+
+

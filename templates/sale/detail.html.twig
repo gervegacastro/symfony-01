@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sale Detail{% endblock %}
+
+{% block body %}
+    
+    {# Datos Venta #}
+    <section class="d-flex flex-column justify-content-center align-items-center">        
+            <h4>Detalles de la venta</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Id venta</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>                       
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.client.name }} {{ sale.client.lastname }}</td>
+                        <td>{{ sale.date|date('Y-m-d') }}</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        
+            <h4 class="mt-3">Lista de productos</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>                    
+                        <th scope="col">Producto</th>
+                        <th scope="col">Pr Unit</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in sale.items %}
+                    <tr>     
+                        <td>{{ item.producto.name }}</td>
+                        <td>{{ item.producto.price }}</td>
+                        <td>{{ item. quantity }}</td>
+                        <td>{{ item.amount }}</td>                        
+                    </tr>
+                    {% endfor %}                                             
+                </tbody>
+            </table>                
+    </section>{# Fin datos venta #}
+</div>
+<div class="container d-flex flex-column align-items-end mb-3">
+    <div class="mb-2">
+        <label><b>Monto Total =</b></label>
+        <input class="text-center" type="text" value="{{ sale.amount }}">
+    </div>
+    <div>
+        <a href="{{ path ('sale_index') }}" class="btn btn-success btn-sm">
+        <i class="bi bi-skip-backward-fill"></i> Volver</a>
+    </div>    
+</div>
+
+{% endblock %}

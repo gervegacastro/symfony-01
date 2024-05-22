@@ -1,0 +1,4 @@
+
+Notas:
+
+- el saleform me tiene que enviar al form de varios items y de ahi completar

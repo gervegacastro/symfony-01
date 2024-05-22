@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center">
+    <section class="mt-4 form-login bg-light mb-4">
+        <div class="text-center p-3">
+            <h2>Editar Usuario</h2>
+            {% if errors %}
+                <div class=" alert alert-danger">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>        
+
+        {{ form_start(form, {'attr': {'class': 'p-3', 'novalidate': '' , 'autocomplete':'off'}}) }}
+            {% for message in app.flashes ('mensaje') %}
+                <div class="">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="form-group"> 
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+                {{ form_errors(form.lastname) }}                         
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password) }}
+                {{ form_errors(form.password) }}                     
+            </div>
+            <div class="form-group mt-2"> 
+                {{ form_label(form.rol) }}
+                {{ form_widget(form.rol) }}
+                {{ form_errors(form.rol) }}                     
+            </div>         
+            <!-- Token -->
+            <input type="hidden" name="token" value="{{csrf_token('generico')}}">        
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" value="Editar" class="btn btn-outline-primary mt">
+            </div>
+        {{ form_end(form) }}
+    </section>    
+</div>
+
+    {#
+    <h2>Editar Usuario</h2>
+
+    {% if errors %}
+        <div class=" alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url ('user_edit', {id:entity.id}) }}">
+
+        {% for message in app.flashes ('mensaje') %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="form-group"> 
+            <label for="user_form_name">Nombre:</label>  
+            {{ form_widget(form.name) }}                     
+        </div>
+        <div class="form-group"> 
+            <label for="user_form_lastname">Apellido:</label>  
+            {{ form_widget(form.lastname) }}                     
+        </div>
+        <div class="form-group"> 
+            <label for="user_form_email">Email:</label>  
+            {{ form_widget(form.email) }}                     
+        </div>
+        <div class="form-group"> 
+            <label for="user_form_password">Password:</label>  
+            {{ form_widget(form.password) }}                     
+        </div>
+        <div class="form-group"> 
+            <label for="user_form_rol">Rol:</label>  
+            {{ form_widget(form.rol) }}                     
+        </div>
+
+         <hr>
+        <!-- Token -->
+        <input type="hidden" name="token" value="{{csrf_token('generico')}}">        
+
+        <input type="submit" value="Editar" class="btn btn-outline-dark">
+
+    </form>
+    #}
+
+{% endblock %}

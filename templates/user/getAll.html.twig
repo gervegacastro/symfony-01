@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GetAll DB Users{% endblock %}
+
+{% block body %}
+    
+    <h2>Lista de usuarios</h2>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>ROL</th>
+                    <th>ACTIVO</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dato in datos %}
+                <tr>
+                    <td>{{dato.id}}</td>
+                    <td>{{dato.name}}</td>
+                    <td>{{dato.lastname}}</td>
+                    <td>{{dato.rol.name}}</td>
+                    <td>{{dato.isDelete ? 'NO' : 'SI'}}</td>
+                    <td>
+                        <a href="{{path ('user_edit', {id : dato.id}) }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-pen-fill"></i> Edit</a>
+                        <a href="{{path ('user_deletedb', {id : dato.id}) }}" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash3-fill"></i> Deletedb</a>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+
+{% endblock %}
